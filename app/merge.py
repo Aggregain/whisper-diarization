@@ -1,17 +1,15 @@
-def merge_transcript_with_speakers(transcript, diarization):
+def merge_transcript_with_speakers(transcript_segments, diarization):
     merged = []
-    for seg in transcript:
-        speaker = "UNKNOWN"
-        mid = (seg["start"] + seg["end"]) / 2
+    for t in transcript_segments:  # already a list of dicts
+        speaker = None
         for d in diarization:
-            if d["start"] <= mid <= d["end"]:
-                speaker = d["speaker"]
+            if d['start'] <= t['start'] and t['end'] <= d['end']:
+                speaker = d['speaker']
                 break
         merged.append({
-            "id": len(merged),
-            "start": round(seg["start"], 2),
-            "end": round(seg["end"], 2),
-            "text": seg["text"],
-            "speaker": speaker
+            "start": t['start'],
+            "end": t['end'],
+            "speaker": speaker or "unknown",
+            "text": t['text']
         })
     return merged

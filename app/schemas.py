@@ -1,25 +1,6 @@
-from typing import List, Optional
 from pydantic import BaseModel
-
-
-class Segment(BaseModel):
-    id: int
-    start: float
-    end: float
-    text: str
-    speaker: Optional[str] = None
-
-
-class DiarizationEntry(BaseModel):
-    start: float
-    end: float
-    speaker: str
-
+from typing import List
 
 class TranscriptionResponse(BaseModel):
-    id: str
-    object: str = "transcription"
-    model: str
     text: str
-    segments: List[Segment]
-    json: List[DiarizationEntry]
+    files: List[str] = [] # Keeping this field as it's required by your platform
