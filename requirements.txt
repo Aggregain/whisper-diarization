@@ -1,0 +1,8 @@
+faster-whisper==1.0.0
+pyannote.audio==3.1.1
+torch>=2.0.0
+torchaudio
+fastapi
+uvicorn[standard]
+pydantic
+numpy
