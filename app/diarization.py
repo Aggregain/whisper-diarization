@@ -1,8 +1,8 @@
-from pyannote.audio import Pipeline
+from pyannote.audio.pipelines import SpeakerDiarization
 from app.config import Config
 
-pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization",
-                                    use_auth_token=Config.HF_TOKEN)
+pipeline = SpeakerDiarization.from_pretrained("pyannote/speaker-diarization-3.1")
+pipeline.to("cuda")
 
 def diarize_audio(audio_path: str):
     diarization = pipeline(audio_path)
