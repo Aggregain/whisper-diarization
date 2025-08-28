@@ -4,6 +4,7 @@ from app.stt_pipeline import transcribe_audio
 from app.diarization import diarize_audio
 from app.merge import merge_transcript_with_speakers
 from app.schemas import TranscriptionResponse
+from app.config import Config
 
 app = FastAPI()
 
@@ -21,7 +22,8 @@ async def transcribe(file: UploadFile):
 
     return TranscriptionResponse(
         id="transcript_01",
-        model="whisper-large-v3",
+        model=f"whisper-{Config.WHISPER_MODEL}",
         text=full_text,
-        segments=merged
+        segments=merged,
+        json=diarization
     )
